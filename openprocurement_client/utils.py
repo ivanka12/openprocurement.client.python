@@ -112,6 +112,31 @@ def get_plan_id_by_uaid(ua_id, client, descending=True, id_field='planID'):
     raise IdNotFound
 
 
+
+def get_asset_id_by_uaid(ua_id, client, descending=True, id_field='assetID'):
+    params = {'offset': '', 'opt_fields': id_field, 'descending': descending}
+    tender_list = True
+    client._update_params(params)
+    while tender_list:
+        tender_list = client.get_assets()
+        for tender in tender_list:
+            if tender[id_field] == ua_id:
+                return tender.id
+    raise IdNotFound
+
+
+def get_lot_id_by_uaid(ua_id, client, descending=True, id_field='lotID'):
+    params = {'offset': '', 'opt_fields': id_field, 'descending': descending}
+    tender_list = True
+    client._update_params(params)
+    while tender_list:
+        tender_list = client.get_lots()
+        for tender in tender_list:
+            if tender[id_field] == ua_id:
+                return tender.id
+    raise IdNotFound
+
+
 def get_response(client, params):
     response_fail = True
     sleep_interval = 0.2
