@@ -8,6 +8,8 @@ class AssetsClient(APIResourceClient):
 
     resource = ASSETS
 
+    create_asset = APIResourceClient.create_resource_item
+
     get_asset = APIResourceClient.get_resource_item
 
     get_assets = APIResourceClient.get_resource_items
