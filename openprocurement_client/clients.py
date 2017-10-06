@@ -37,6 +37,8 @@ class APIBaseClient(APITemplateClient):
                                             headers=self.headers,
                                             user_agent=user_agent)
         if ds_config:
+            LOGGER.warning(ds_config['auth_ds'])
+            LOGGER.warning(ds_config['host_url'])
             self.ds_client = DocumentServiceClient(ds_config['host_url'],
                                                    ds_config['auth_ds'])
         self.host_url = host_url or self.host_url
@@ -132,9 +134,11 @@ class APIBaseClient(APITemplateClient):
                               method='POST', doc_registration=True):
         if hasattr(self, 'ds_client'):
             if doc_registration:
+                LOGGER.warning(11111111111)
                 response = self.ds_client.document_upload_registered(
                     file_=file_, headers=headers
                 )
+                print(444444444444444)
             else:
                 response = self.ds_client.document_upload_not_registered(
                     file_=file_, headers=headers
@@ -381,7 +385,7 @@ class APIResourceClient(APIBaseClient):
         else:
             url = '{}/{}/{}'.format(
                 self.prefix_path, resource_item_id, doc_type
-            )
+            )   
         return self._upload_resource_file(
             url, file_=file_, headers=headers,
             doc_registration=doc_registration

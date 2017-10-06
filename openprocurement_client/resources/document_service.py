@@ -20,7 +20,6 @@ class DocumentServiceClient(APITemplateClient):
                  host_url,
                  auth_ds,
                  headers=None):
-
         super(DocumentServiceClient, self)\
             .__init__(login_pass=auth_ds, headers=headers)
 
@@ -42,13 +41,14 @@ class DocumentServiceClient(APITemplateClient):
         return hasher.hexdigest()
 
     def register_document_upload(self, hash_value, headers=None):
+        print(333333333333)
         response_item = self.request(
             'POST', path=self.host_url_register,
             json={'data': {'hash': hash_value}}, headers=headers
         )
         if response_item.status_code != 201:
             raise InvalidResponse(response_item)
-
+        print response_item.text
         return munchify(loads(response_item.content))
 
     def _document_upload(self, url, file_, headers=None):
@@ -58,17 +58,20 @@ class DocumentServiceClient(APITemplateClient):
 
         if response_item.status_code != 200:
             raise InvalidResponse(response_item)
-
+        print response_item.text
         return loads(response_item.text)
 
     def document_upload_registered(self, file_, headers):
 
         file_hash = 'md5:' + self._hashfile(file_)
-
+        print(file_hash)
+        print(1111111111)
         response = self.register_document_upload(
             hash_value=file_hash,
             headers=headers
         )
+        print(2222222222)
+        print(response.upload_url)
         return self._document_upload(
             url=response.upload_url,
             file_={'file': file_},

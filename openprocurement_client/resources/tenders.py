@@ -11,7 +11,7 @@ from retrying import retry
 
 class TendersClient(APIResourceClient):
     """client for tenders"""
-    resource = TENDERS
+    # resource = TENDERS
 
     ###########################################################################
     #                         CREATE ITEM API METHODS
