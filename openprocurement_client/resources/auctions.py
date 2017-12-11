@@ -111,17 +111,19 @@ class AuctionsClient(APIResourceClient):
             depth_path=depth_path
         )
 
-    def patch_award(self, auction_id, award, award_id):
+    def patch_award(self, auction_id, award, award_id, access_token=None):
         return self.patch_resource_item_subitem(
-            auction_id, award, AWARDS, subitem_id=award_id
+            auction_id, award, AWARDS, subitem_id=award_id,
+            headers={'X-Access-Token': access_token}
         )
 
     def patch_award_document(self, auction_id, document_data, award_id,
-                             document_id):
+                             document_id, access_token=None):
         depth_path = '{}/{}'.format(AWARDS, award_id)
         return self.patch_resource_item_subitem(
             auction_id, document_data, DOCUMENTS, subitem_id=document_id,
-            depth_path=depth_path
+            depth_path=depth_path,
+            headers={'X-Access-Token': access_token}
         )
 
     def patch_cancellation(self, auction_id, cancellation, cancellation_id):

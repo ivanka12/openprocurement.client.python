@@ -136,17 +136,18 @@ class TendersClient(APIResourceClient):
             depth_path=depth_path
         )
 
-    def patch_award(self, tender_id, award, award_id):
+    def patch_award(self, auction_id, award, award_id, access_token=None):
         return self.patch_resource_item_subitem(
-            tender_id, award, AWARDS, subitem_id=award_id
+            auction_id, award, AWARDS, subitem_id=award_id,
+            access_token=access_token
         )
 
-    def patch_award_document(self, tender_id, document_data, award_id,
-                             document_id):
+    def patch_award_document(self, auction_id, document_data, award_id,
+                             document_id, access_token=None):
         depth_path = '{}/{}'.format(AWARDS, award_id)
         return self.patch_resource_item_subitem(
-            tender_id, document_data, DOCUMENTS, subitem_id=document_id,
-            depth_path=depth_path
+            auction_id, document_data, DOCUMENTS, subitem_id=document_id,
+            depth_path=depth_path, access_token=access_token
         )
 
     def patch_cancellation(self, tender_id, cancellation, cancellation_id):
@@ -186,16 +187,16 @@ class TendersClient(APIResourceClient):
             subitem_id=qualification_id
         )
 
-    def patch_contract(self, tender_id, contract, contract_id):
+    def patch_contract(self, tender_id, contract, contract_id, access_token=None):
         return self.patch_resource_item_subitem(
-            tender_id, contract, CONTRACTS, subitem_id=contract_id
+            tender_id, contract, CONTRACTS, subitem_id=contract_id, access_token=access_token
         )
 
     def patch_contract_document(self, tender_id, document_data, contract_id,
-                                document_id):
+                                document_id, access_token=None):
         return self.patch_resource_item_subitem(
             tender_id, document_data, DOCUMENTS, subitem_id=document_id,
-            depth_path='{}/{}'.format(CONTRACTS, contract_id)
+            depth_path='{}/{}'.format(CONTRACTS, contract_id), access_token=access_token
         )
 
     ###########################################################################
